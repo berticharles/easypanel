@@ -1,13 +1,7 @@
 {
-  "name": "mcp-bridge",
+  "name": "mcp-action-script",
   "version": "1.0.0",
-  "description": "A bridge server for TypingMind MCP",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
   "dependencies": {
-    "@typingmind/mcp": "latest",
-    "axios": "^1.7.2"
+    "axios": "latest"
   }
 }
