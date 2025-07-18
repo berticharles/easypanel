@@ -13,5 +13,4 @@ RUN npm install
 COPY send_webhook.js ./
 
 # O comando que inicia o servidor MCP e o mantém ouvindo.
-# Ele não precisa de token.
-CMD ["mcp"]
+CMD ["mcp", "$MCP_AUTH_TOKEN"]
