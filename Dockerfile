@@ -1,19 +1,15 @@
-# Usar uma imagem oficial do Node.js como base.
-# A versão 'alpine' é pequena e eficiente.
+# Usar uma imagem oficial do Node.js como base
 FROM node:20-alpine
+
+# Instalar o conector do TypingMind globalmente durante a construção da imagem.
+# Isso é mais robusto do que usar npx toda vez.
+RUN npm install -g @typingmind/mcp
 
 # Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
-# O conector do TypingMind espera rodar na porta 50880.
-# Podemos definir isso como uma variável de ambiente.
-ENV PORT=50880
-
-# Expor a porta para que o Docker possa mapeá-la.
-EXPOSE 50880
-
 # O comando que será executado quando o container iniciar.
-# Ele usa uma variável de ambiente (MCP_SECRET_KEY) que vamos configurar no Easypanel.
-# Isso evita colocar sua chave secreta diretamente no código.
-CMD npx @typingmind/mcp $MCP_SECRET_KEY```
-
+# Ele agora usa o comando 'mcp' (que foi instalado globalmente)
+# e passa a chave secreta como um argumento.
+CMD mcp $MCP_SECRET_KEY
+```5.  Role até o final da página e clique no botão verde **"Commit changes"** para salvar a alteração.
