@@ -2,7 +2,6 @@
 FROM node:20-alpine
 
 # Instalar o 'curl', que é necessário para enviar o webhook para o Zapier.
-# O 'apk' é o gerenciador de pacotes do Alpine Linux.
 RUN apk add curl
 
 # Instalar o conector do TypingMind globalmente durante a construção da imagem.
@@ -12,4 +11,5 @@ RUN npm install -g @typingmind/mcp
 WORKDIR /app
 
 # O comando que será executado quando o container iniciar.
-CMD mcp $MCP_SECRET_KEY
+# Esta é a forma "exec", recomendada pelo Docker para maior estabilidade.
+CMD ["/bin/sh", "-c", "mcp $MCP_SECRET_KEY"]
