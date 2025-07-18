@@ -1,4 +1,4 @@
-const { McpSdk } = require('@modelcontextprotocol/sdk');
+const { McpSdk } = require('@typingmind/mcp-sdk');
 const axios = require('axios');
 
 // IMPORTANTE: URL do seu webhook do n8n.
