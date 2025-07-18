@@ -1,4 +1,5 @@
-const { McpServer } = require('@typingmind/mcp');
+// Importa o módulo completo, em vez de tentar desestruturar
+const mcp = require('@typingmind/mcp');
 const axios = require('axios');
 
 // Pega a URL do webhook do Zapier da variável de ambiente.
@@ -8,8 +9,8 @@ if (!ZAPIER_WEBHOOK_URL) {
   process.exit(1);
 }
 
-// Cria uma nova instância do servidor MCP.
-const server = new McpServer();
+// Acessa o construtor 'McpServer' a partir do objeto importado
+const server = new mcp.McpServer();
 
 // Registra nosso comando personalizado.
 server.register('enviar_para_zapier', {
@@ -35,7 +36,7 @@ server.register('enviar_para_zapier', {
   },
 });
 
-// Inicia o servidor. Ele vai usar a porta da variável de ambiente PORT.
+// Inicia o servidor.
 server.listen().then(() => {
   console.log(`[INFO] Servidor-Ponte MCP iniciado e pronto.`);
 }).catch(err => {
