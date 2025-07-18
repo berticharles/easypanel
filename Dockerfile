@@ -12,4 +12,3 @@ WORKDIR /app
 # Ele agora usa o comando 'mcp' (que foi instalado globalmente)
 # e passa a chave secreta como um argumento.
 CMD mcp $MCP_SECRET_KEY
-```5.  Role até o final da página e clique no botão verde **"Commit changes"** para salvar a alteração.
