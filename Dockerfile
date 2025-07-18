@@ -1,15 +1,14 @@
-# Usar uma imagem oficial do Node.js como base (Alpine Linux)
+# Usar uma imagem oficial do Node.js como base
 FROM node:20-alpine
 
-# Instalar o 'curl', que é necessário para enviar o webhook para o Zapier.
-RUN apk add curl
+# --- DIAGNÓSTICO DURANTE A CONSTRUÇÃO ---
+# 1. Qual usuário está executando estes comandos?
+RUN whoami
 
-# Instalar o conector do TypingMind globalmente durante a construção da imagem.
-RUN npm install -g @typingmind/mcp
+# 2. Listar as permissões do 'echo' e do 'curl'
+RUN apk add curl && ls -la /bin/sh && ls -la /bin/echo && ls -la /usr/bin/curl
 
-# Definir o diretório de trabalho dentro do container
-WORKDIR /app
-
-# O comando que será executado quando o container iniciar.
-# Esta é a forma "exec", recomendada pelo Docker para maior estabilidade.
-CMD ["/bin/sh", "-c", "mcp $MCP_SECRET_KEY"]
+# --- MANTER O CONTAINER VIVO PARA INSPEÇÃO ---
+# Este comando não faz nada além de manter o container rodando
+# para que possamos entrar nele e investigar.
+CMD tail -f /dev/null
