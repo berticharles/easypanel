@@ -1,5 +1,6 @@
-// Importa o módulo completo, em vez de tentar desestruturar
-const mcp = require('@typingmind/mcp');
+// A CORREÇÃO: Importamos 'McpServer' diretamente.
+// O pacote exporta a classe como o item principal.
+const McpServer = require('@typingmind/mcp');
 const axios = require('axios');
 
 // Pega a URL do webhook do Zapier da variável de ambiente.
@@ -9,8 +10,8 @@ if (!ZAPIER_WEBHOOK_URL) {
   process.exit(1);
 }
 
-// Acessa o construtor 'McpServer' a partir do objeto importado
-const server = new mcp.McpServer();
+// Agora, new McpServer() vai funcionar, pois a variável McpServer contém o construtor correto.
+const server = new McpServer();
 
 // Registra nosso comando personalizado.
 server.register('enviar_para_zapier', {
@@ -21,24 +22,5 @@ server.register('enviar_para_zapier', {
 
     try {
       // Usa o axios para fazer a chamada HTTP para o Zapier.
-      const response = await axios.post(ZAPIER_WEBHOOK_URL, {
-        text: promptText,
-      });
-
-      console.log('[SUCCESS] Dados enviados com sucesso para o Zapier.');
-      // Responde ao TypingMind com sucesso!
-      return { success: true, message: 'Enviado para o Zapier.' };
-    } catch (error) {
-      console.error('[ERROR] Falha ao enviar dados para o Zapier:', error.message);
-      // Responde ao TypingMind com a mensagem de erro.
-      return { success: false, error: error.message };
-    }
-  },
-});
-
-// Inicia o servidor.
-server.listen().then(() => {
-  console.log(`[INFO] Servidor-Ponte MCP iniciado e pronto.`);
-}).catch(err => {
-  console.error('[FATAL] Não foi possível iniciar o servidor MCP:', err);
-});
+      await axios.post(ZAPIER_WEBHOOK_URL, {
+        text: promptText
