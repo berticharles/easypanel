@@ -2,15 +2,16 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copia os arquivos de dependência e instala
-COPY package*.json ./
+# Instala a ferramenta de servidor MCP globalmente
+RUN npm install -g @typingmind/mcp
+
+# Copia e instala as dependências do nosso script (axios)
+COPY package.json ./
 RUN npm install
 
-# Copia o resto do código da aplicação
-COPY . .
+# Copia nosso script de ação para o container
+COPY send_webhook.js ./
 
-# Expõe a porta que o Easypanel usará
-EXPOSE 80
-
-# Comando para iniciar o servidor
-CMD ["node", "server.js"]
+# O comando que inicia o servidor MCP e o mantém ouvindo.
+# Ele não precisa de token.
+CMD ["mcp"]
