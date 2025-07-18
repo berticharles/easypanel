@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.2.1",
+    "@typingmind/mcp-sdk": "latest",
     "axios": "^1.7.2"
   }
 }
